@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="carousel">
+    <ng-container *ngFor="let slide of slides; let i = index">
+      <img
+        *ngIf="i === currentSlide"
+        [src]="slide.src"
+        class="slide"
+        alt="text"
+        @carouselAnim
+      />
+    </ng-container>
+
+    <!-- controls -->
+    <button class="control prev" (click)="onNextClick()">
+      <span class="arrow left"></span>
+    </button>
+    <button class="control next" (click)="onPreviousClick()">
+      <span class="arrow right"></span>
+    </button>
+  </div>
+</div>
+<div style="display: grid; grid-auto-flow: column; justify-content: center">
+  <div *ngFor="let slide of slides; let i = index"
+       style="width: 25px; height: 25px; border-radius: 50%; margin: 0 5px; background-color: #555"
+       [ngStyle]="{backgroundColor: i === currentSlide ? 'blue' : 'red'}"
+  ></div>
+</div>
+<!--<div class="images-management-panel">-->
+<!--  item-->
+<!--</div>-->
+
+<div class="editor-section">
+  <button (click)="recipeGS.selectComponentToEdit(id)">Edit</button>
+</div>
+<app-editor *ngIf="recipeGS.editedComponentId === id">
+  WTF image {{ id }}
+</app-editor>

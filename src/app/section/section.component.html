@@ -1,0 +1,26 @@
+<div class="mb-3 w-100" *ngIf="recipeGS.isRecipeEdited; else recipePreview">
+  <div class="form-group">
+    <label for="title">Section Title</label>
+    <input type="text" class="form-control" id="title" [(ngModel)]="title">
+  </div>
+
+  <div class="form-group">
+    <label for="content">Section Content</label>
+    <textarea class="form-control"  placeholder="Required example textarea" id="content" required [(ngModel)]="text"></textarea>
+  </div>
+<!--  <div class="images-management-panel">-->
+<!--    item-->
+<!--  </div>-->
+</div>
+
+<ng-template #recipePreview>
+  <h2>{{ title }}</h2>
+  <div>{{ text }}</div>
+</ng-template>
+
+<div class="editor-section">
+  <button (click)="recipeGS.selectComponentToEdit(id)">Edit</button>
+</div>
+<app-editor *ngIf="recipeGS.editedComponentId === id">
+  WTF image {{ id }}
+</app-editor>
