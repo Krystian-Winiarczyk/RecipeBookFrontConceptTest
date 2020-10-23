@@ -1,7 +1,7 @@
 <div class="container">
   <div cdkDropList [cdkDropListData]="this.recipeGeneratorService.selectedComponents" (cdkDropListDropped)="onTaskDrop($event)">
     <div *ngIf="this.recipeGeneratorService.selectedComponents">
-      <div *ngFor="let ar of this.recipeGeneratorService.selectedComponents; let i = index" cdkDrag class="example-box" >
+      <div *ngFor="let ar of this.recipeGeneratorService.selectedComponents; let i = index" cdkDrag class="example-box" (cdkDragStarted)="recipeGeneratorService.selectComponentToEdit(null)">
         <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
         <dcl-wrapper [type]=ar.component [id]=ar.itemId [currentPos]="i"></dcl-wrapper>
       </div>
