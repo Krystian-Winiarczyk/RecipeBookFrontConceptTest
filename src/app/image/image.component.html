@@ -1,5 +1,5 @@
 <div class="images-container">
-  <div class="input-group mb-3 w-50 m-auto" *ngIf="!images.length; else uploadedFiles">
+  <div class="input-group mb-3 w-50 m-auto" *ngIf="!data.images.length; else uploadedFiles">
     <div class="input-group-prepend">
       <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03">Upload</button>
     </div>
@@ -10,19 +10,26 @@
   </div>
 
   <ng-template #uploadedFiles>
-    <div [ngStyle]="style">
-      <img *ngFor="let image of images; let i = index"
+    <div [ngStyle]="data.style" #imagesContainer>
+      <img *ngFor="let image of data.images; let i = index"
            [src]="image.imageBase"
            alt=""
            (click)="onSelectImage(i)"
+           [ngStyle]="image.imageStyle ? image.imageStyle : null"
       >
     </div>
   </ng-template>
 </div>
 
 <div class="editor-section">
-  <button (click)="recipeGS.selectComponentToEdit(id)">Edit</button>
+  <button (click)="recipeGS.selectComponentToEdit(id)" class="btn btn-warning rounded-circle">
+    <fa-icon [icon]="recipeGS.icons.edit"></fa-icon>
+  </button>
+  <button (click)="recipeGS.selectedComponents.splice(currentPos, 1)" class="btn btn-danger rounded-circle">
+    <fa-icon [icon]="recipeGS.icons.trash"></fa-icon>
+  </button>
 </div>
+
 <app-editor *ngIf="recipeGS.editedComponentId === id">
   <div class="card text-white bg-dark">-->
         Alignment
@@ -35,40 +42,57 @@
           <input type="radio" [name]="'alignment'+id" id="horizontalAlignment" (change)="onChangeAlignment($event)" value="horizontal">
         </label>
       </div>
-      <div class="card text-white bg-dark" *ngIf="alignment === 'vertical'">
+      <div class="card text-white bg-dark" *ngIf="data.alignment === 'vertical'">
           <div class="form-group">
             <label for="numbersInColumn">Images In Column</label>
             <input type="number" id="numbersInColumn" class="form-control" (change)="onChangeImagesCount($event)" max="4" [defaultValue]="3">
           </div>
       </div>
       <div class="card text-white bg-dark" *ngIf="selectedImageId != null">
-        Selected Image
-        <img [src]="this.images[selectedImageId].imageBase" alt="" width="100%" height="100px">
-        wtf
+          Selected Image
+          <img [src]="this.data.images[selectedImageId].imageBase" alt="" width="100%" height="100px">
+          <!---->
+          <label for="imageWidth" class="my-1">Width</label>
+          <div class="input-group">
+            <input type="number" id="imageWidth" class="form-control" (change)="onSizeChange($event, 'width', '%')" min="0" [max]="100" [defaultValue]="imgDetails.width">
+            <div class="input-group-append">
+              <span class="input-group-text">%</span>
+            </div>
+          </div>
+          <!---->
+          <label for="imageHeight" class="my-1">Height</label>
+          <div class="input-group">
+            <input type="number" id="imageHeight" class="form-control" (change)="onSizeChange($event, 'height', 'px')" min="0" max="500" [defaultValue]="imgDetails.height">
+            <div class="input-group-append">
+              <span class="input-group-text">px</span>
+            </div>
+          </div>
+          <!---->
+          Image Position
+          <label for="leftPosition">
+            Left
+            <input type="radio" [name]="'position'+id" id="leftPosition" (change)="onChangeImagePosition($event)" [defaultChecked]="true" value="start">
+        </label>
+        <label for="rightPosition">
+          Right
+          <input type="radio" [name]="'position'+id" id="rightPosition" (change)="onChangeImagePosition($event)" value="end">
+        </label>
+        <label for="centerPosition">
+          Center
+          <input type="radio" [name]="'position'+id" id="centerPosition" (change)="onChangeImagePosition($event)" value="center">
+        </label>
+        <button class="btn btn-primary" (click)="test()">Test</button>
       </div>
 </app-editor>
 
-<!--<div class="images-management-panel" *ngIf="images.length">-->
-<!--  <div class="card">-->
-<!--    Alignment-->
-<!--    <label for="verticalAlignment">-->
-<!--      Vertical-->
-<!--      <input type="radio" [name]="'alignment'+id" id="verticalAlignment" (change)="onChangeAlignment($event)" [defaultChecked]="true" value="vertical">-->
-<!--    </label>-->
-<!--    <label for="horizontalAlignment">-->
-<!--      Horizontal-->
-<!--      <input type="radio" [name]="'alignment'+id" id="horizontalAlignment" (change)="onChangeAlignment($event)" value="horizontal">-->
-<!--    </label>-->
-<!--  </div>-->
-<!--  <div class="card" *ngIf="alignment === 'vertical'">-->
-<!--      <div class="form-group">-->
-<!--        <label for="numbersInColumn">Images In Column</label>-->
-<!--        <input type="number" id="numbersInColumn" class="form-control" (change)="onChangeImagesCount($event)" max="4" [defaultValue]="3">-->
-<!--      </div>-->
-<!--  </div>-->
-<!--  <div class="card" *ngIf="selectedImageId != null">-->
-<!--    Selected Image-->
-<!--    <img [src]="this.images[selectedImageId].imageBase" alt="" width="100%" height="100px">-->
-<!--    wtf-->
-<!--  </div>-->
-<!--</div>-->
+<!--
+
+Default value
+
+// data.images[this.selectedImageId]['imageStyle'] &&
+// data.images[this.selectedImageId]['imageStyle'].height ? data.images[this.selectedImageId]['imageStyle'].height.replace('px','') : 250
+
+data.images[this.selectedImageId]['imageStyle'] &&
+data.images[this.selectedImageId]['imageStyle'].width ? data.images[this.selectedImageId]['imageStyle'].width.replace('%','') : 100
+
+-->

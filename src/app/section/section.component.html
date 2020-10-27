@@ -19,7 +19,12 @@
 </ng-template>
 
 <div class="editor-section">
-  <button (click)="recipeGS.selectComponentToEdit(id)">Edit</button>
+  <button (click)="recipeGS.selectComponentToEdit(id)" class="btn btn-warning rounded-circle">
+    <fa-icon [icon]="recipeGS.icons.edit"></fa-icon>
+  </button>
+  <button (click)="recipeGS.selectedComponents.splice(currentPos, 1)" class="btn btn-danger rounded-circle">
+    <fa-icon [icon]="recipeGS.icons.trash"></fa-icon>
+  </button>
 </div>
 <app-editor *ngIf="recipeGS.editedComponentId === id">
   WTF image {{ id }}

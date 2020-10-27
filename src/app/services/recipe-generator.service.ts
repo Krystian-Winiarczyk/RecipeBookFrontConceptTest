@@ -3,7 +3,7 @@ import {ListComponent} from '../list/list.component';
 import {SectionComponent} from '../section/section.component';
 import {ImageComponent} from '../image/image.component';
 import {GalleryComponent} from '../gallery/gallery.component';
-import {faEdit, faEye, faImage, faImages, faList, faPuzzlePiece} from '@fortawesome/free-solid-svg-icons';
+import {faEdit, faEye, faImage, faImages, faList, faPuzzlePiece, faTrash} from '@fortawesome/free-solid-svg-icons';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,8 @@ export class RecipeGeneratorService {
     list: faList,
     gallery: faImages,
     image: faImage,
-    section: faPuzzlePiece
+    section: faPuzzlePiece,
+    trash: faTrash
   };
 
   componentsToSelect = [
@@ -64,6 +65,13 @@ export class RecipeGeneratorService {
 
   selectComponentToEdit(id) {
     this.editedComponentId = id;
+  }
+
+  updateData(data, currentPos, itemId) {
+    if (this.selectedComponents[currentPos]['data'])
+      this.selectedComponents[currentPos]['data'] = {};
+
+    this.selectedComponents[currentPos]['data'] = data;
   }
 
 }

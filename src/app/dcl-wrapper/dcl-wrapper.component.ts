@@ -1,4 +1,5 @@
 import { NgModule, Component, Compiler, ViewContainerRef, ViewChild, Input, ComponentRef, ComponentFactory, ComponentFactoryResolver, ChangeDetectorRef } from '@angular/core'
+import {RecipeGeneratorService} from '../services/recipe-generator.service';
 
 @Component({
   selector: 'dcl-wrapper',
@@ -13,7 +14,7 @@ export class DclWrapperComponent {
   private isViewInitialized: boolean = false;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver, private compiler: Compiler,
-              private cdRef: ChangeDetectorRef) { }
+              private cdRef: ChangeDetectorRef, private recipeGeneratorService: RecipeGeneratorService) { }
 
   updateComponent(updateFinalElementId: boolean = true) {
     if (!this.isViewInitialized) {
@@ -28,7 +29,11 @@ export class DclWrapperComponent {
       this.cmpRef = this.target.createComponent(factory);
       this.cmpRef.instance.id = this.id;
     }
+
     this.cmpRef.instance.currentPos = this.currentPos;
+
+    this.recipeGeneratorService.updateData(this.cmpRef.instance, this.currentPos, this.id);
+
     this.cdRef.detectChanges();
   }
 
