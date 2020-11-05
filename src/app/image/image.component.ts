@@ -1,14 +1,25 @@
-import {ChangeDetectorRef, Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {fileUpload} from '../shared/files';
 import {RecipeGeneratorService} from '../services/recipe-generator.service';
+import {animate, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-image',
   templateUrl: './image.component.html',
-  styleUrls: ['./image.component.css']
+  styleUrls: ['./image.component.css'],
+  animations: [
+    trigger('editorAnimation', [
+      transition('void => *', [
+        style({ opacity: 0, transform: "translateX(150px)" }),
+        animate('300ms', style({ opacity: 1, transform: "translateX(0)" }))
+      ]),
+      transition('* => void', [
+        animate('300ms', style({ opacity: 0, transform: "translateX(150px)" }))
+      ])
+    ])
+  ]
 })
 export class ImageComponent implements OnInit {
-  @ViewChild('imagesContainer') imagesContainer : ElementRef;
   data: {} = {
     alignment: "vertical",
     images: [],
@@ -21,12 +32,8 @@ export class ImageComponent implements OnInit {
     }
   };
 
-  imgDetails: {} = {
-    'height': 250,
-    'width': 100,
-    'justify-self': 'start'
-  };
-
+  selectedVerticalImagePosition = "start";
+  selectedHorizontalImagePosition = "start";
   selectedImageId: number = null;
   id;
   currentPos;
@@ -58,34 +65,45 @@ export class ImageComponent implements OnInit {
   }
 
   onSelectImage(index) {
+    const image = this.data.images[index]["imageStyle"];
+
     if (this.data.alignment != "vertical") {
-      let style = this.data.images[index].imageStyle;
+      if (image && image["justify-self"])
+        this.selectedVerticalImagePosition = image["justify-self"];
+      else
+        this.selectedVerticalImagePosition = "start";
 
-      if (style) {
-        this.imgDetails = {
-          'height': style.height ? style.height : 250,
-          'width': style.width ? style.width : 100,
-          'justify-self': style['justify-self'] ? style['justify-self'] : 'start'
-        };
-      }
-
-      this.selectedImageId = index;
+      if (image && image["align-self"])
+        this.selectedHorizontalImagePosition = image["align-self"];
+      else
+        this.selectedHorizontalImagePosition = "start";
     }
+
+    this.selectedImageId = index;
+
   }
 
   onSizeChange(event, size, unit) {
     this.checkImageStyle();
 
     this.data.images[this.selectedImageId]["imageStyle"][size] = event.target.value.concat(unit);
-    console.log(this.data.images);
   }
 
-  onChangeImagePosition(event) {
+  onChangeImagePosition(event, isVertical) {
     this.checkImageStyle();
 
-    this.data.images[this.selectedImageId]["imageStyle"]["justify-self"] = event.target.value;
+    if (isVertical)
+      this.data.images[this.selectedImageId]["imageStyle"]["justify-self"] = event.target.value;
+    else
+      this.data.images[this.selectedImageId]["imageStyle"]["align-self"] = event.target.value;
+  }
 
-    console.log(this.data.images[this.selectedImageId]);
+  onChangeImagePlace(event) {
+    const currentIndex = this.selectedImageId;
+    const newIndex = event.target.value - 1;
+    this.selectedImageId = newIndex;
+
+    this.moveArrayItem(this.data.images, currentIndex, newIndex);
   }
 
   test() {
@@ -93,8 +111,19 @@ export class ImageComponent implements OnInit {
   }
 
   private checkImageStyle() {
-    if (!this.data.images[this.selectedImageId]["imageStyle"])
+    const isStyled = this.data.images[this.selectedImageId]["imageStyle"];
+    if (!isStyled)
       this.data.images[this.selectedImageId]["imageStyle"] = {};
   }
+
+  private moveArrayItem(arr, oldIndex, newIndex) {
+    if (newIndex >= arr.length) {
+      let k = newIndex - arr.length + 1;
+      while (k--) {
+        arr.push(undefined);
+      }
+    }
+    arr.splice(newIndex, 0, arr.splice(oldIndex, 1)[0]);
+  };
 
 }
