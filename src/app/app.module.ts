@@ -11,7 +11,6 @@ import {ListComponent} from './list/list.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {EditorComponent} from './editor/editor.component';
 import {ObserversModule} from '@angular/cdk/observers';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
@@ -31,7 +30,6 @@ const routes: Routes = [
     ImageComponent,
     SectionComponent,
     ListComponent,
-    EditorComponent,
     HomeComponent,
     CreatorComponent
   ],

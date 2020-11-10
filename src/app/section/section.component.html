@@ -1,31 +1,34 @@
-<div class="mb-3 w-100" *ngIf="recipeGS.isRecipeEdited; else recipePreview">
-  <div class="form-group">
-    <label for="title">Section Title</label>
-    <input type="text" class="form-control" id="title" [(ngModel)]="title">
+<span *ngIf="recipeGS.isRecipeEdited; else recipePreview">
+  <div class="mb-3 w-100">
+    <div class="form-group">
+      <label for="title">Section Title</label>
+      <input type="text" class="form-control" id="title" [(ngModel)]="data.title">
+    </div>
+
+    <div class="form-group">
+      <label for="content">Section Content</label>
+      <textarea class="form-control"  placeholder="Required" id="content" required [(ngModel)]="data.content"></textarea>
+    </div>
   </div>
 
-  <div class="form-group">
-    <label for="content">Section Content</label>
-    <textarea class="form-control"  placeholder="Required example textarea" id="content" required [(ngModel)]="text"></textarea>
+  <div class="editor-section">
+    <button (click)="recipeGS.selectComponentToEdit(id)" class="btn btn-warning rounded-circle">
+      <fa-icon [icon]="recipeGS.icons.edit"></fa-icon>
+    </button>
+    <button (click)="recipeGS.selectedComponents.splice(currentPos, 1)" class="btn btn-danger rounded-circle">
+      <fa-icon [icon]="recipeGS.icons.trash"></fa-icon>
+    </button>
   </div>
-<!--  <div class="images-management-panel">-->
-<!--    item-->
-<!--  </div>-->
-</div>
+
+  <app-editor *ngIf="recipeGS.editedComponentId === id">
+    WTF image {{ id }}
+  </app-editor>
+</span>
+
 
 <ng-template #recipePreview>
-  <h2>{{ title }}</h2>
-  <div>{{ text }}</div>
+  <h2>{{ data.title }}</h2>
+  <div>{{ data.content }}</div>
 </ng-template>
 
-<div class="editor-section">
-  <button (click)="recipeGS.selectComponentToEdit(id)" class="btn btn-warning rounded-circle">
-    <fa-icon [icon]="recipeGS.icons.edit"></fa-icon>
-  </button>
-  <button (click)="recipeGS.selectedComponents.splice(currentPos, 1)" class="btn btn-danger rounded-circle">
-    <fa-icon [icon]="recipeGS.icons.trash"></fa-icon>
-  </button>
-</div>
-<app-editor *ngIf="recipeGS.editedComponentId === id">
-  WTF image {{ id }}
-</app-editor>
+

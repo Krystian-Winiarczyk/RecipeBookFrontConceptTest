@@ -30,14 +30,14 @@ export class DclWrapperComponent {
       this.cmpRef = this.target.createComponent(factory);
       this.cmpRef.instance.id = this.id;
     }
+    if (this.data)
+      this.cmpRef.instance.data = this.data;
+    else
+      this.recipeGeneratorService.updateData(this.cmpRef.instance.data, this.currentPos);
+
 
     this.cmpRef.instance.currentPos = this.currentPos;
 
-    this.recipeGeneratorService.updateData(this.cmpRef.instance.data, this.currentPos);
-
-    if (this.data) {
-      this.cmpRef.instance.data = this.data;
-    }
 
     this.cdRef.detectChanges();
   }

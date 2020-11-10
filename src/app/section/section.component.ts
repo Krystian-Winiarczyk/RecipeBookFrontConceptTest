@@ -7,8 +7,10 @@ import {RecipeGeneratorService} from '../services/recipe-generator.service';
   styleUrls: ['./section.component.css']
 })
 export class SectionComponent implements OnInit {
-  title: string;
-  text: string;
+  data: {} = {
+    title: "",
+    content: ""
+  };
   id;
   currentPos;
 

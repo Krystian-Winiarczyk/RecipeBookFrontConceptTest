@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RecipeGeneratorService} from '../services/recipe-generator.service';
-import {ImageComponent} from '../image/image.component';
-import {GalleryComponent} from '../gallery/gallery.component';
-import {ListComponent} from '../list/list.component';
-import {SectionComponent} from '../section/section.component';
+import {components} from '../shared/components';
 
 @Component({
   selector: 'app-home',
@@ -11,17 +8,14 @@ import {SectionComponent} from '../section/section.component';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  recipe = {};
+  recipe = [];
+  components = components;
 
-  constructor(private recipeGeneratorService: RecipeGeneratorService) { }
+  constructor(private recipeGeneratorService: RecipeGeneratorService) {
+  }
 
   ngOnInit(): void {
-    const components = {
-      "ImageComponent": ImageComponent,
-      "GalleryComponent": GalleryComponent,
-      "ListComponent": ListComponent,
-      "SectionComponent": SectionComponent
-    };
+    this.recipeGeneratorService.isRecipeEdited = false;
 
     this.recipeGeneratorService.getRecipeById()
       .subscribe(res => {
@@ -29,7 +23,7 @@ export class HomeComponent implements OnInit {
         console.log(res.recipe);
       }, err => {
         console.log(err);
-      })
+      });
   }
 
   test() {

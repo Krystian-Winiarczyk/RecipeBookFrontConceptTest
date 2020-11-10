@@ -5,6 +5,7 @@ import {ImageComponent} from '../image/image.component';
 import {GalleryComponent} from '../gallery/gallery.component';
 import {faEdit, faEye, faImage, faImages, faList, faPuzzlePiece, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {HttpClient} from '@angular/common/http';
+import {components} from '../shared/components';
 
 @Injectable({
   providedIn: 'root'
@@ -23,36 +24,17 @@ export class RecipeGeneratorService {
     trash: faTrash
   };
 
-  componentsToSelect = [
-    {
-      title: "List",
-      icon: this.icons.list,
-      component: ListComponent
-    },
-    {
-      title: "Section",
-      icon: this.icons.section,
-      component: SectionComponent
-    },
-    {
-      title: "Image",
-      icon: this.icons.image,
-      component: ImageComponent
-    },
-    {
-      title: "Gallery",
-      icon: this.icons.gallery,
-      component: GalleryComponent
-    }
-  ];
-
   constructor(private httpClient: HttpClient) {
   }
 
   selectedComponents: any[] = [];
 
   public returnComponents() {
-    return this.componentsToSelect;
+    const componentsToSelect: any[] = [];
+    for (let component in components) {
+      componentsToSelect.push(components[component])
+    }
+    return componentsToSelect;
   }
 
   public addComponent(component) {
@@ -87,7 +69,7 @@ export class RecipeGeneratorService {
   }
 
   updateData(data, currentPos) {
-    if (this.selectedComponents[currentPos]['data'])
+    if (this.selectedComponents[currentPos] && this.selectedComponents[currentPos]['data'])
       this.selectedComponents[currentPos]['data'] = {};
 
     this.selectedComponents[currentPos]['data'] = data;
@@ -95,7 +77,7 @@ export class RecipeGeneratorService {
   }
 
   getRecipeById() {
-    const id = "-MLh6y1kYvdBd62a2jm6";
+    const id = "-MLnkgXhJM_N2C2CDpGs";
     return this.httpClient.get(`https://insta-6d8f2.firebaseio.com/recipes/${id}.json`);
   }
 
