@@ -13,6 +13,15 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {EditorComponent} from './editor/editor.component';
 import {ObserversModule} from '@angular/cdk/observers';
+import {HttpClientModule} from '@angular/common/http';
+import {RouterModule, Routes} from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { CreatorComponent } from './creator/creator.component';
+
+const routes: Routes = [
+  { path: "", component: CreatorComponent },
+  { path: "home", component: HomeComponent },
+];
 
 @NgModule({
   declarations: [
@@ -22,7 +31,9 @@ import {ObserversModule} from '@angular/cdk/observers';
     ImageComponent,
     SectionComponent,
     ListComponent,
-    EditorComponent
+    EditorComponent,
+    HomeComponent,
+    CreatorComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +42,9 @@ import {ObserversModule} from '@angular/cdk/observers';
     BrowserAnimationsModule,
     FontAwesomeModule,
     ReactiveFormsModule,
-    ObserversModule
+    ObserversModule,
+    HttpClientModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent],

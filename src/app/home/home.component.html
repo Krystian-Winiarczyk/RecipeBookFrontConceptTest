@@ -1,0 +1,8 @@
+<div class="container">
+  <div>
+      <div *ngFor="let ar of this.recipe; let i = index" class="example-box">
+        <dcl-wrapper [type]=ar.component [id]=ar.itemId [currentPos]="i"></dcl-wrapper>
+      </div>
+  </div>
+  <button (click)="test()" class="btn btn-success">SAVE</button>
+</div>

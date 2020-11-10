@@ -66,8 +66,9 @@ export class ImageComponent implements OnInit {
 
   onSelectImage(index) {
     const image = this.data.images[index]["imageStyle"];
+    console.log(image);
 
-    if (this.data.alignment != "vertical") {
+    if (this.data.alignment === "vertical") {
       if (image && image["justify-self"])
         this.selectedVerticalImagePosition = image["justify-self"];
       else

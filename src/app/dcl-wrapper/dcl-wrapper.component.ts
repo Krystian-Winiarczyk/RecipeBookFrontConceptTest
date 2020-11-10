@@ -10,6 +10,7 @@ export class DclWrapperComponent {
   @Input() type;
   @Input() id;
   @Input() currentPos;
+  @Input() data = null;
   cmpRef: ComponentRef<any>;
   private isViewInitialized: boolean = false;
 
@@ -32,7 +33,11 @@ export class DclWrapperComponent {
 
     this.cmpRef.instance.currentPos = this.currentPos;
 
-    this.recipeGeneratorService.updateData(this.cmpRef.instance, this.currentPos, this.id);
+    this.recipeGeneratorService.updateData(this.cmpRef.instance.data, this.currentPos);
+
+    if (this.data) {
+      this.cmpRef.instance.data = this.data;
+    }
 
     this.cdRef.detectChanges();
   }
