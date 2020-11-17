@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {RecipeGeneratorService} from '../services/recipe-generator.service';
-import {components} from '../shared/components';
+import {RecipeGeneratorService} from '../../services/recipe-generator.service';
+import {components} from '../../shared/components';
 
 @Component({
   selector: 'app-home',

@@ -1,0 +1,44 @@
+<span *ngIf="isRecipeEdited(); else recipePreview ">
+  <div class="w-50" >
+  <h3>List component Title</h3>
+  <label class="input-group mb-3">
+    <div class="input-group-prepend">
+      <button (click)="onClick()" class="btn btn-outline-success" type="button" id="button-addon1">Button</button>
+    </div>
+    <input [(ngModel)]="data.item" type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+  </label>
+  <ul *ngIf="data.items" class="list-group w-50">
+    <li *ngFor="let i of data.items" class="list-group-item">{{ i }}</li>
+  </ul>
+</div>
+  <!-- Editor -->
+<div class="editor-section">
+  <button (click)="recipeGS.selectComponentToEdit(id)" class="btn btn-warning rounded-circle">
+    <fa-icon [icon]="recipeGS.icons.edit"></fa-icon>
+  </button>
+  <button (click)="recipeGS.selectedComponents.splice(currentPos, 1)" class="btn btn-danger rounded-circle">
+    <fa-icon [icon]="recipeGS.icons.trash"></fa-icon>
+  </button>
+</div>
+<div class="bg-dark editor" *ngIf="recipeGS.editedComponentId === id">
+  <div class="card bg-dark text-white">
+    Title
+    <label for="titleFontSize" class="my-1">Font Size</label>
+    <div class="input-group">
+      <input type="number" id="titleFontSize" class="form-control" max="48">
+      <div class="input-group-append">
+        <span class="input-group-text">px</span>
+      </div>
+    </div>
+  </div>
+  <div class="card bg-dark text-white">
+    Content
+  </div>
+</div>
+</span>
+
+<ng-template #recipePreview>
+  <ul *ngIf="items" class="list-group w-50">
+    <li *ngFor="let i of items" class="list-group-item">{{ i }}</li>
+  </ul>
+</ng-template>

@@ -1,8 +1,4 @@
-import {ComponentFactoryResolver, ComponentRef, Injectable} from '@angular/core';
-import {ListComponent} from '../list/list.component';
-import {SectionComponent} from '../section/section.component';
-import {ImageComponent} from '../image/image.component';
-import {GalleryComponent} from '../gallery/gallery.component';
+import {Injectable} from '@angular/core';
 import {faEdit, faEye, faImage, faImages, faList, faPuzzlePiece, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {HttpClient} from '@angular/common/http';
 import {components} from '../shared/components';

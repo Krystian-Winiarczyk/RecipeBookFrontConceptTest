@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {fileUpload} from '../shared/files';
-import {RecipeGeneratorService} from '../services/recipe-generator.service';
+import {fileUpload} from '../../../../shared/files';
+import {RecipeGeneratorService} from '../../../../services/recipe-generator.service';
 import {animate, style, transition, trigger} from '@angular/animations';
 
 @Component({

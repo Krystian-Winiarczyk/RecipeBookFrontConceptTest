@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {animate, style, transition, trigger} from '@angular/animations';
-import {RecipeGeneratorService} from '../services/recipe-generator.service';
+import {RecipeGeneratorService} from '../../../../services/recipe-generator.service';
 
 @Component({
   selector: 'app-gallery',

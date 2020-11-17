@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {RecipeGeneratorService} from '../services/recipe-generator.service';
+import {RecipeGeneratorService} from '../../../../services/recipe-generator.service';
 
 @Component({
   selector: 'app-list',
@@ -7,8 +7,13 @@ import {RecipeGeneratorService} from '../services/recipe-generator.service';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-  item: string = "Type item";
-  items: string[] = [];
+  data: {
+    item: string,
+    items: string[]
+  } = {
+    item: "Type item",
+    items: []
+  };
   id;
   currentPos;
 
@@ -19,7 +24,11 @@ export class ListComponent implements OnInit {
   }
 
   onClick() {
-    this.items.push(this.item);
+    this.data.items.push(this.data.item);
+  }
+
+  isRecipeEdited(): boolean {
+    return this.recipeGS.isRecipeEdited;
   }
 
 }

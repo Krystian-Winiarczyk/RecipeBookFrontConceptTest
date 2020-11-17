@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {RecipeGeneratorService} from '../services/recipe-generator.service';
+import {RecipeGeneratorService} from '../../services/recipe-generator.service';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({

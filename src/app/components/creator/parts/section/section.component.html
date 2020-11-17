@@ -1,13 +1,8 @@
-<span *ngIf="recipeGS.isRecipeEdited; else recipePreview">
+<span *ngIf="isRecipeEdited(); else recipePreview">
   <div class="mb-3 w-100">
     <div class="form-group">
-      <label for="title">Section Title</label>
-      <input type="text" class="form-control" id="title" [(ngModel)]="data.title">
-    </div>
-
-    <div class="form-group">
       <label for="content">Section Content</label>
-      <textarea class="form-control"  placeholder="Required" id="content" required [(ngModel)]="data.content"></textarea>
+      <textarea class="form-control" placeholder="Required" id="content" required [(ngModel)]="data.content"></textarea>
     </div>
   </div>
 
@@ -20,14 +15,15 @@
     </button>
   </div>
 
-  <app-editor *ngIf="recipeGS.editedComponentId === id">
-    WTF image {{ id }}
-  </app-editor>
+  <div class="bg-dark editor" *ngIf="recipeGS.editedComponentId === id">
+    <div class="card bg-dark text-white">
+      Content
+    </div>
+  </div>
 </span>
 
 
 <ng-template #recipePreview>
-  <h2>{{ data.title }}</h2>
   <div>{{ data.content }}</div>
 </ng-template>
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {RecipeGeneratorService} from '../services/recipe-generator.service';
+import {RecipeGeneratorService} from '../../../../services/recipe-generator.service';
 
 @Component({
   selector: 'app-section',
@@ -7,8 +7,7 @@ import {RecipeGeneratorService} from '../services/recipe-generator.service';
   styleUrls: ['./section.component.css']
 })
 export class SectionComponent implements OnInit {
-  data: {} = {
-    title: "",
+  data: { content: string } = {
     content: ""
   };
   id;
@@ -19,10 +18,8 @@ export class SectionComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onClick() {
-    console.log("Section");
-    console.log("Final id: " + this.id);
-    console.log("Current Pos: " + this.currentPos);
+  isRecipeEdited(): boolean {
+    return this.recipeGS.isRecipeEdited;
   }
 
 }

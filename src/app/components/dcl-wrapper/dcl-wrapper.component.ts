@@ -1,5 +1,5 @@
 import { NgModule, Component, Compiler, ViewContainerRef, ViewChild, Input, ComponentRef, ComponentFactory, ComponentFactoryResolver, ChangeDetectorRef } from '@angular/core'
-import {RecipeGeneratorService} from '../services/recipe-generator.service';
+import {RecipeGeneratorService} from '../../services/recipe-generator.service';
 
 @Component({
   selector: 'dcl-wrapper',

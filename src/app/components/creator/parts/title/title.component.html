@@ -1,0 +1,30 @@
+<span *ngIf="isRecipeEdited(); else recipePreview">
+  <div class="mb-3 w-100">
+    <div class="form-group">
+      <label for="content">Title</label>
+      <input class="form-control" placeholder="Required" id="title" required [(ngModel)]="data.title" />
+    </div>
+  </div>
+
+  <div class="editor-section">
+    <button (click)="recipeGS.selectComponentToEdit(id)" class="btn btn-warning rounded-circle">
+      <fa-icon [icon]="recipeGS.icons.edit"></fa-icon>
+    </button>
+    <button (click)="recipeGS.selectedComponents.splice(currentPos, 1)" class="btn btn-danger rounded-circle">
+      <fa-icon [icon]="recipeGS.icons.trash"></fa-icon>
+    </button>
+  </div>
+
+  <div class="bg-dark editor" *ngIf="recipeGS.editedComponentId === id">
+    <div class="card bg-dark text-white">
+      Title
+    </div>
+  </div>
+</span>
+
+
+<ng-template #recipePreview>
+  <div>{{ data.content }}</div>
+</ng-template>
+
+
