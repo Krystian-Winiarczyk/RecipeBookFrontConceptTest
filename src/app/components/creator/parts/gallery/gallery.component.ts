@@ -7,6 +7,15 @@ import {RecipeGeneratorService} from '../../../../services/recipe-generator.serv
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.css'],
   animations: [
+    trigger('editorAnimation', [
+      transition('void => *', [
+        style({ opacity: 0, transform: "translateX(150px)" }),
+        animate('300ms', style({ opacity: 1, transform: "translateX(0)" }))
+      ]),
+      transition('* => void', [
+        animate('300ms', style({ opacity: 0, transform: "translateX(150px)" }))
+      ])
+    ]),
     trigger('carouselAnim', [
       transition('void => *', [
         style({ opacity: 0 }),

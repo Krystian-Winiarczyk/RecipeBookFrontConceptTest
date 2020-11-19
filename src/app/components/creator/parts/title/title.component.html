@@ -1,8 +1,8 @@
 <span *ngIf="isRecipeEdited(); else recipePreview">
   <div class="mb-3 w-100">
     <div class="form-group">
-      <label for="content">Title</label>
-      <input class="form-control" placeholder="Required" id="title" required [(ngModel)]="data.title" />
+      <label for="title">Title</label>
+      <input class="form-control" placeholder="Required" id="title" required [(ngModel)]="data.title"/>
     </div>
   </div>
 
@@ -15,16 +15,32 @@
     </button>
   </div>
 
-  <div class="bg-dark editor" *ngIf="recipeGS.editedComponentId === id">
+  <div class="bg-dark editor" *ngIf="recipeGS.editedComponentId === id" @editorAnimation>
     <div class="card bg-dark text-white">
-      Title
+      Font Size
+      <div class="input-group">
+        <input type="number" id="imageHeight" class="form-control" min="16" max="48"/>
+        <div class="input-group-append">
+          <span class="input-group-text">px</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-dark text-white">
+      Background Color
+      <div class="input-group">
+        <input type="number" id="bgColor" class="form-control" min="16" max="48"/>
+        <div class="input-group-append">
+          <span class="input-group-text">px</span>
+        </div>
+      </div>
     </div>
   </div>
 </span>
 
 
 <ng-template #recipePreview>
-  <div>{{ data.content }}</div>
+  <div>{{ data.title }}</div>
 </ng-template>
 
 
